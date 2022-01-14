@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.freekickr.roombahighscore.fragments.game.GameViewModel" />
+
+        <import type="com.freekickr.roombahighscore.entities.Round" />
+
+        <import type="com.freekickr.roombahighscore.entities.Player" />
+
+        <import type="com.freekickr.roombahighscore.fragments.game.Scores"/>
+
+        <import type="android.view.View" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            style="@style/DescTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/game"
+            app:layout_constraintBottom_toTopOf="@id/guidelineTop"
+            app:layout_constraintEnd_toStartOf="@id/guidelineRight"
+            app:layout_constraintStart_toEndOf="@id/guidelineLeft" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineTop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.1" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.1" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineRight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.9" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineBottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.9" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:divider="@drawable/tall_divider"
+            android:orientation="vertical"
+            android:paddingTop="10dp"
+            android:showDividers="middle"
+            app:layout_constraintBottom_toTopOf="@id/guidelineBottom"
+            app:layout_constraintEnd_toStartOf="@id/guidelineRight"
+            app:layout_constraintStart_toEndOf="@id/guidelineLeft"
+            app:layout_constraintTop_toBottomOf="@id/guidelineTop">
+
+            <androidx.cardview.widget.CardView
+                style="@style/GameCardView"
+                android:visibility="@{viewModel.MRound.player1.initialized ? View.VISIBLE : View.GONE}">
+
+                <TextView
+                    style="@style/TextViewGamePlayerName"
+                    android:text="@{viewModel.MRound.player1.name}" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/TextViewGamePlayerScore"
+                        android:text="@{Integer.toString(viewModel.MRound.player1.score)}" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="10dp"
+                        android:text="+"
+                        android:textSize="20sp"
+                        android:visibility="@{viewModel.isRoombaPressed ? View.VISIBLE : View.GONE}" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:enabled="@{viewModel.MRound.player1.isInGame ? true : false}"
+                        android:visibility="@{viewModel.isRoombaPressed ? View.VISIBLE : View.GONE}">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center_vertical"
+                            android:inputType="numberSigned"
+                            android:text="@={viewModel.MScores.score1}"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                style="@style/GameCardView"
+                android:visibility="@{viewModel.MRound.player2.initialized ? View.VISIBLE : View.GONE}">
+
+                <TextView
+                    style="@style/TextViewGamePlayerName"
+                    android:text="@{viewModel.MRound.player2.name}" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/TextViewGamePlayerScore"
+                        android:text="@{Integer.toString(viewModel.MRound.player2.score)}" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="10dp"
+                        android:text="+"
+                        android:textSize="20sp"
+                        android:visibility="@{viewModel.isRoombaPressed ? View.VISIBLE : View.GONE}" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:enabled="@{viewModel.MRound.player2.isInGame ? true : false}"
+                        android:visibility="@{viewModel.isRoombaPressed ? View.VISIBLE : View.GONE}">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="numberSigned"
+                            android:text="@={viewModel.MScores.score2}"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                style="@style/GameCardView"
+                android:visibility="@{viewModel.MRound.player3.initialized ? View.VISIBLE : View.GONE}">
+
+                <TextView
+                    style="@style/TextViewGamePlayerName"
+                    android:text="@{viewModel.MRound.player3.name}" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/TextViewGamePlayerScore"
+                        android:text="@{Integer.toString(viewModel.MRound.player3.score)}" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="10dp"
+                        android:text="+"
+                        android:textSize="20sp"
+                        android:visibility="@{viewModel.isRoombaPressed ? View.VISIBLE : View.GONE}" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:enabled="@{viewModel.MRound.player3.isInGame ? true : false}"
+                        android:layout_height="wrap_content"
+                        android:visibility="@{viewModel.isRoombaPressed ? View.VISIBLE : View.GONE}">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="numberSigned"
+                            android:text="@={viewModel.MScores.score3}"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                style="@style/GameCardView"
+                android:visibility="@{viewModel.MRound.player4.initialized ? View.VISIBLE : View.GONE}">
+
+                <TextView
+                    style="@style/TextViewGamePlayerName"
+                    android:text="@{viewModel.MRound.player4.name}" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/TextViewGamePlayerScore"
+                        android:text="@{Integer.toString(viewModel.MRound.player4.score)}" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="10dp"
+                        android:text="+"
+                        android:textSize="20sp"
+                        android:visibility="@{viewModel.isRoombaPressed ? View.VISIBLE : View.GONE}" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:enabled="@{viewModel.MRound.player4.isInGame ? true : false}"
+                        android:visibility="@{viewModel.isRoombaPressed ? View.VISIBLE : View.GONE}">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="numberSigned"
+                            android:text="@={viewModel.MScores.score4}"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                style="@style/GameCardView"
+                android:visibility="@{viewModel.MRound.player5.initialized ? View.VISIBLE : View.GONE}">
+
+                <TextView
+                    style="@style/TextViewGamePlayerName"
+                    android:text="@{viewModel.MRound.player5.name}" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/TextViewGamePlayerScore"
+                        android:text="@{Integer.toString(viewModel.MRound.player5.score)}" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="10dp"
+                        android:text="+"
+                        android:textSize="20sp"
+                        android:visibility="@{viewModel.isRoombaPressed ? View.VISIBLE : View.GONE}" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:enabled="@{viewModel.MRound.player5.isInGame ? true : false}"
+                        android:visibility="@{viewModel.isRoombaPressed ? View.VISIBLE : View.GONE}">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="numberSigned"
+                            android:text="@={viewModel.MScores.score5}"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                style="@style/GameCardView"
+                android:visibility="@{viewModel.MRound.player6.initialized ? View.VISIBLE : View.GONE}">
+
+                <TextView
+                    style="@style/TextViewGamePlayerName"
+                    android:text="@{viewModel.MRound.player6.name}" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/TextViewGamePlayerScore"
+                        android:text="@{Integer.toString(viewModel.MRound.player6.score)}" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="10dp"
+                        android:text="+"
+                        android:textSize="20sp"
+                        android:visibility="@{viewModel.isRoombaPressed ? View.VISIBLE : View.GONE}" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:enabled="@{viewModel.MRound.player6.isInGame ? true : false}"
+                        android:visibility="@{viewModel.isRoombaPressed ? View.VISIBLE : View.GONE}">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="numberSigned"
+                            android:text="@={viewModel.MScores.score6}"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnRoomba"
+            style="@style/MainMenuButton"
+            android:layout_width="0dp"
+            android:text="@string/roomba"
+            android:enabled="@{viewModel.isGameFinished() ? false : true}"
+            android:visibility="@{viewModel.isRoombaPressed ? View.GONE : View.VISIBLE}"
+            app:layout_constraintEnd_toStartOf="@id/guidelineRight"
+            app:layout_constraintStart_toEndOf="@id/guidelineLeft"
+            app:layout_constraintTop_toBottomOf="@id/guidelineBottom" />
+
+        <Button
+            android:id="@+id/btnEndRound"
+            style="@style/MainMenuButton"
+            android:layout_width="0dp"
+            android:text="Закончить раунд"
+            android:enabled="@{viewModel.isGameFinished() ? false : true}"
+            android:visibility="@{viewModel.isRoombaPressed ? View.VISIBLE : View.GONE}"
+            app:layout_constraintEnd_toStartOf="@id/guidelineRight"
+            app:layout_constraintStart_toEndOf="@id/guidelineLeft"
+            app:layout_constraintTop_toBottomOf="@id/guidelineBottom" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
