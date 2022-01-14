@@ -1,7 +1,9 @@
 # roomba-score-v2
 
 What used in this project:
-MVVM, Hilt, Navigation UI, Shared Preferences, LiveData
+MVVM, Hilt, Navigation UI, Shared Preferences, LiveData.
+
+To find source code see "develop" branch.
 
 Simple app for make assistance in scoring in the game "Roomba" with the ability to save unfinished games.
 
